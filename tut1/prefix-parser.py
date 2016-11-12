@@ -7,27 +7,31 @@ def parse_expression(expression, index=0):
     a = 0
     b = 0
     c = expression[index]
-    if c >= '0' and c <= '9':
-        return int(c)
-    elif c in ['+', '-', '*', '/']:
-        a = parse_expression(expression, index + 1)
-        b = parse_expression(expression, index + 2)
+    index += 1
+    if c in "0123456789":
+        return (int(c), index)
+    elif c in "+-*/":
+        a, index = parse_expression(expression, index)
+        b, index = parse_expression(expression, index)
     else:
-        raise Exception()
+        raise Exception("illegal operator")
 
-    if c == '+':
-        return a + b
-    elif c == '-':
-        return a - b
-    elif c == '*':
-        return a * b
-    elif c == '/':
-        return a / b
+    if c == "+":
+        return (a + b, index)
+    elif c == "-":
+        return (a - b, index)
+    elif c == "*":
+        return (a * b, index)
+    elif c == "/":
+        return (a // b, index)
 
 
 def main(arg):
-    result = parse_expression(arg.split(' '))
-    print(result)
+    result, index = parse_expression(arg)
+    if (index == len(arg)):
+        print(result)
+    else:
+        raise Exception("too much operands")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1])
