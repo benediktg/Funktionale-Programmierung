@@ -12,5 +12,4 @@ rotateQuadruple (a, b, c, d) n
     | otherwise = (a, b, c, d)
 
 calcAddSubMulDiv :: Float -> Float -> (Float, Float, Float, Float)
-calcAddSubMulDiv a b =
-    (a + b, a - b, a * b, a / b)
+calcAddSubMulDiv a b = (a + b, a - b, a * b, a / b)
