@@ -15,3 +15,19 @@ isPalinRec [] [] = True
 isPalinRec xs xsRev
     | head xs == head xsRev = isPalinRec (tail xs) (tail xsRev)
     | otherwise = False
+
+primeTwinsLComp :: Int -> [(Int, Int)]
+primeTwinsLComp x =
+    [(a - 2, a) | a <- [(1 + 2)..x], prime a && prime (a - 2)]
+
+prime :: Int -> Bool
+prime n = (divisors n == [1,n])
+
+divisors :: Int -> [Int]
+divisors n = [d | d <- [1..n], n `mod` d == 0]
+
+splitListLComp :: [(Int, Int)] -> ([Int], [Int])
+splitListLComp xs =
+    let ys = [fst x | x <- xs]
+        zs = [snd x | x <- xs]
+    in (ys, zs)
