@@ -1,7 +1,6 @@
 orderTriple :: (Int, Int, Int) -> (Int, Int, Int)
 orderTriple (a, b, c)
     | a > b = orderTriple (b, a, c)
-    | a > c = orderTriple (c, b, a)
     | b > c = orderTriple (a, c, b)
     | otherwise = (a, b, c)
 
