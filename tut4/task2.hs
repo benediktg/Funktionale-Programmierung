@@ -15,6 +15,6 @@ linearSearchRec pre (x:xs) n =
 quickSortGen :: (a -> a -> Bool) -> [a] -> [a]
 quickSortGen _ [] = []
 quickSortGen cmp (x:xs) =
-    let lower = quickSortGen cmp [y | y <- xs, cmp y x]
-        upper = quickSortGen cmp [z | z <- xs, not (cmp z x)]
+    let lower = quickSortGen cmp (filter (cmp x) xs)
+        upper = quickSortGen cmp (filter (not.cmp x) xs)
     in lower ++ [x] ++ upper
