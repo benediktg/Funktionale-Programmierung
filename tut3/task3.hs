@@ -17,3 +17,14 @@ merge [] ys = ys
 merge (x:xs) (y:ys)
     | x <= y = x : merge xs (y:ys)
     | otherwise = y : merge (x:xs) ys
+
+nor3 :: Bool -> Bool -> Bool -> Bool
+nor3 False False False = True
+nor3 a b c = False
+
+nor3' :: Bool -> Bool -> Bool -> Bool
+nor3' a b c
+    | a = False
+    | b = False
+    | c = False
+    | otherwise = True
