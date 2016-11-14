@@ -10,8 +10,12 @@ howManyEqualOfThree a b c
     | (a == b) || (b == c) || (a == c) = 2
     | otherwise = 1
 
-howManyEqualOfFour :: Int -> Int -> Int -> Int
+howManyEqualOfFour :: Int -> Int -> Int -> Int -> Int
 howManyEqualOfFour a b c d
-    | (a == d) || (b == d) || (c == d) = 1 + howManyEqualOfThree a b c
-    | otherwise = howManyEqualOfThree a b c
-    -- problem: e.g. 1 2 2 1 ==> would return 3 but should 2
+    | a > b = howManyEqualOfFour b a c d
+    | b > c = howManyEqualOfFour a c b d
+    | c > d = howManyEqualOfFour a b d c
+    | a < b = howManyEqualOfThree b c d
+    | b < c = 2
+    | c < d = 3
+    | otherwise = 4
