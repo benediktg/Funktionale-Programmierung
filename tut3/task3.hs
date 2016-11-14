@@ -1,7 +1,6 @@
 sumNorm :: [Float] -> Float
-sumNorm xs
-    | null xs = 0.0
-    | otherwise = abs (head xs) + sumNorm (tail xs)
+sumNorm [] = 0.0
+sumNorm (x:xs) = abs x + sumNorm xs
 
 mergeSort :: [Int] -> [Int]
 mergeSort [] = []

@@ -5,9 +5,8 @@ calcFibonacci n =
        else calcFibonacci (n - 1) + calcFibonacci (n - 2)
 
 calcPi2 :: Int -> Float
-calcPi2 n
-    | n == 0 = 1
-    | otherwise = (-1)^n / fromIntegral (2 * n + 1) + calcPi2 (n-1)
+calcPi2 0 = 1
+calcPi2 n = (-1)^n / fromIntegral (2 * n + 1) + calcPi2 (n-1)
 
 calcPi :: Float
 calcPi = 4 * calcPi2 10000
