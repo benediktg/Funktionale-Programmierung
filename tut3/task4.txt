@@ -1,31 +1,70 @@
-a)
+-- Equational reasoning
+-----------------------
 
-A1: length [] = 0
-A2: length (x:xs) = 1 + length xs
+-- a)
 
-B1: (++) [] ys = ys
-B2: (++) (x:xs) ys = x : (xs ++ ys)
+-- A1: length [] = 0
+-- A2: length (x:xs) = 1 + length xs
 
-C1: x:[] = [x]
-C2: x:[y, ..., z] = [x,y, ..., z]
+-- B1: (++) [] ys = ys
+-- B2: (++) (x:xs) ys = x : (xs ++ ys)
+
+-- C1: x:[] = [x]
+-- C2: x:[y, ..., z] = [x,y, ..., z]
 
 (length (1:2:[] ++ [3, 4]) != 4) = False
-        (1:[2] ++ [3, 4])  -- C1
-        (1:([2] ++ [3, 4]))  -- B2
-        (1:(2:[] ++ [3,4]))  -- C1
-1 + length (2:[] ++ [3, 4])  -- A2
-           (2:([] ++ [3, 4])  -- B2
+        (1:[2] ++ [3, 4])      -- C1
+        (1:([2] ++ [3, 4]))    -- B2
+        (1:(2:[] ++ [3,4]))    -- C1
+1 + length (2:[] ++ [3, 4])    -- A2
+           (2:([] ++ [3, 4])   -- B2
 1 + 1 + length ([] ++ [3, 4])  -- A2
-               ([3, 4])  -- B1
-               (3:[4])  -- C2
-1 + 1 + 1 + length ([4])  -- A2
-                   (4:[])  -- C1
-1 + 1 + 1 + 1 + length ([])  -- A2
-1 + 1 + 1 + 1 + 0  -- A1
-4 != 4  -- (+)-Operator
-False = False  -- (!=)-Operator
-q. e. d.
+               ([3, 4])        -- B1
+               (3:[4])         -- C2
+1 + 1 + 1 + length ([4])       -- A2
+                   (4:[])      -- C1
+1 + 1 + 1 + 1 + length ([])    -- A2
+1 + 1 + 1 + 1 + 0              -- A1
+4 != 4                         -- (+)
+False = False                  -- (!=)
+-- q. e. d.
 
 
-b)
+-- b)
 
+-- S1: sum [] = 0
+-- S2: sum (x:xs) = x + sum xs
+
+-- D1: dbl [] = []
+-- D2: dbl (x:xs) = (2 * x) : (dbl xs)
+
+-- Induktion:
+[sum (dbl xs)] == dbl [sum xs]
+
+-- Anfang:
+[sum (dbl [])] == dbl [sum []]
+[sum []]       == dbl [0]             -- D1; S1
+[0]            == dbl [0: []]         -- S1; cons
+                  (2 * 0) : (dbl [])  -- D2
+                  0 : []              -- (*); D1
+                  [0]                 -- cons
+[0] == [0]
+-- q. e. d.
+
+-- Schritt: xs → x:xs
+-- Voraussetzung: [sum (dbl xs)] == dbl [sum xs]  → IV
+-- Behauptung:    [sum (dbl x:xs)] == dbl [sum x:xs]
+
+[sum (2 * x) : (dbl xs)] == dbl [x + sum xs]           -- D2; S2
+[(2 * x) + sum (dbl xs)] == dbl (x + sum xs) : []      -- S2; cons
+                            2 * (x + sum xs) : dbl []  -- D2
+                                             : []      -- D1
+                            [2 * (x + sum xs)]         -- cons
+                            [(2 * x) + (2 * sum xs)]   -- Ausklammern
+[sum (dbl xs)] == [2 * sum xs]                         -- (2 * x) abziehen
+dbl [sum xs] == (2 * sum xs) : []                      -- IV; cons
+                             : dbl []                  -- D1
+                dbl (sum xs) : []                      -- D2
+dbl [sum xs] == dbl [sum xs]                           -- cons
+True                                                   -- (==)
+-- q. e. d.
