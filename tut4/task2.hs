@@ -1,3 +1,5 @@
+import Data.Char
+
 calcOps :: [(Float -> Float -> Float)] -> Float -> Float -> [Float]
 calcOps [] _ _ = []
 calcOps (x:xs) a b = (x a b) : (calcOps xs a b)
@@ -18,3 +20,13 @@ quickSortGen cmp (x:xs) =
     let lower = quickSortGen cmp (filter (cmp x) xs)
         upper = quickSortGen cmp (filter (not.cmp x) xs)
     in lower ++ [x] ++ upper
+
+cmpString :: String -> String -> Bool
+cmpString [] ys = True
+cmpString xs [] = False
+cmpString (x:xs) (y:ys) =
+    if toLower(x) < toLower(y)
+       then True
+       else if toLower(x) > toLower(y)
+       then False
+       else cmpString xs ys
