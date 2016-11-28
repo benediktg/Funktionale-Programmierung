@@ -1,0 +1,26 @@
+-- a)
+-- f x
+
+f :: a -> (b -> c)
+x :: a
+f x :: b -> c
+
+-- b)
+-- g (f x)
+
+f x :: b -> c
+g :: (b -> c) -> a
+g :: a
+
+-- c)
+--- h ((g.f) x) y ((f.g) (f x) y)
+
+(g.f) x = g (f x) :: a
+f x :: b -> c
+y :: b
+(f.g) (f x) y = f (g (f x)) y
+                  (:: a   )
+                (:: b -> c)
+                :: c
+h :: a -> b -> c -> d
+h a b c :: d
