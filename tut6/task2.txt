@@ -1,0 +1,41 @@
+-- a)
+add (mul 1 2) (mul 3 4)
+
+-- LI
+= add (1 * 2) (mul 3 4)
+= add 2 (mul 3 4)
+= add 2 (3 * 4)
+= add 2 12
+= 2 + 12
+= 14
+
+-- LO
+= (mul 1 2) + (mul 3 4)
+= (1 * 2) + (mul 3 4)
+= 2 + (mul 3 4)
+= 2 + (3 * 4)
+= 2 + 12
+= 14
+
+-- b)
+foldr (&&) True [True, False, True]
+
+-- LI
+= foldr (&&) True (True : [False, True])
+= foldr (&&) True (True : False : [True])
+= foldr (&&) True (True : False : True : []])
+= (&&) True (foldr (&&) True (False : True : []))
+= (&&) True ((&&) False (foldr (&&) True (True : [])))
+= (&&) True ((&&) False ((&&) True (foldr (&&) True [])))
+= (&&) True ((&&) False ((&&) True True))
+= (&&) True ((&&) False True)
+= (&&) True False
+= False
+
+-- LO
+= foldr (&&) True (True : [False, True])
+= (&&) True (foldr (&&) True [False, True])
+= (&&) True (foldr (&&) True (False : [True]))
+= (&&) True ((&&) False (foldr (&&) True [True]))
+= (&&) True False
+= False

@@ -17,7 +17,7 @@ treeList (Branch xs) = foldl (++) [] (map treeList xs)
 treeDepth :: GenTree a -> Int
 treeDepth (Leaf x) = 1
 treeDepth (Branch []) = 0
-treeDepth (Branch xs) = foldl (max) 0 (map treeDepth xs) + 1
+treeDepth (Branch xs) = 1 + foldl (max) 0 (map treeDepth xs)
 
 treeChilds :: GenTree a -> Int
 treeChilds (Leaf x) = 0
