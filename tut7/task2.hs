@@ -9,7 +9,7 @@ getNInts n
     | n <= 0 = return []
     | otherwise = do i <- getInt
                      is <- getNInts (n - 1)
-                     return (i:is)
+                     return (i : is)
 
 -- c)
 main = do putStrLn "Bitte Anzahl eingeben!"
