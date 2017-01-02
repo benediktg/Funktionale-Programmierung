@@ -1,0 +1,17 @@
+-- a)
+take 1 (foldr (++) [] (repeat [1]))
+= take 1 (foldr (++) [] ([1] : (repeat [1])))
+= take 1 ((++) [1] (foldr (++) [] (repeat [1])))
+= take 1 ((++) (1 : []) (foldr (++) [] (repeat [1])))
+= take 1 (1 : ((++) [] (foldr (++) [] (repeat [1]))))
+= 1 : (take (1 - 1) (1 : ((++) [] (foldr (++) [] (repeat [1])))))
+= 1 : (take 0 (1 : ((++) [] (foldr (++) [] (repeat [1])))))
+= 1 : []
+= [1]
+-- terminiert
+
+-- b)
+take 1 (foldl (++) [] (repeat [1]))
+{--
+terminiert nicht, da foldl jetzt der äußerste Redex ist
+--}
